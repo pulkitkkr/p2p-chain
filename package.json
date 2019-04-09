@@ -19,7 +19,7 @@
     "classnames": "^2.2.6",
     "dat-swarm-defaults": "^1.0.2",
     "discovery-swarm": "^5.1.4",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "get-port": "^5.0.0",
     "js-crypto-rsa": "^0.4.14",
     "node-sass": "^4.11.0",
