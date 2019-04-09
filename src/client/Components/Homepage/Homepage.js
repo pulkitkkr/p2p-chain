@@ -4,7 +4,7 @@ import Hero from './Hero/Hero';
 import "./Homepage.scss";
 import JoinForm from './JoinForm/JoinForm.js';
 import RequestForm from './RequestForm/RequestForm';
-import { requestCity, REQUEST_CITY } from '../../utils/broadcast'
+import { requestCity, REQUEST_CITY, grantInformation, INFORMATION_GRANT } from '../../utils/broadcast'
 import { broadCastData, subscribeToPeers } from '../../utils/socket';
 
 class Homepage extends Component {
@@ -15,6 +15,8 @@ class Homepage extends Component {
       age: "",
       address: "",
     },
+    grantedData:[],
+    peerId: "",
     filterCity: "",
     joinedChain: false
   };
@@ -31,28 +33,46 @@ class Homepage extends Component {
   };
 
   dataReducer = (data) => {
+    console.log(data.type == REQUEST_CITY, REQUEST_CITY, data.type);
     switch (data.type) {
       case REQUEST_CITY:
-        if(this.state.userInfo.city === data.filter) {
-          alert("Someone wants to access your data")
+        if(this.state.userInfo.city == data.filter) {
+          const access = confirm("Someone Wants data for users in "+this.state.userInfo.city+", Shall we grant access ?");
+          if(access) {
+            broadCastData(grantInformation(this.state.userInfo, data.sender));
+          }
         }
         break;
+      case INFORMATION_GRANT:
+        let availData = this.state.grantedData;
+        if(data.grantedTo === this.state.peerId) {
+          availData.push(data);
+          this.setState({grantedData: data});
+        }
+      break;
+      default:
+        console.log(data);
     }
   };
-
+  setId = (id) => {
+    this.setState({peerId: id});
+  };
   onFormJoin = () => {
     this.setState({joinedChain: true}, ()=>{
-      subscribeToPeers(this.dataReducer);
+      subscribeToPeers(this.dataReducer, this.setId);
     });
   };
 
   render() {
-    const { joinedChain, filterCity } = this.state;
+    const { joinedChain, filterCity, peerId, grantedData } = this.state;
     return (
       <>
         <Hero/>
         <Grid.Container>
           <Grid noPadding>
+            <Grid.Row>
+              { peerId && <h2> Your PeerId is: {peerId}</h2>}
+            </Grid.Row>
             <Grid.Row>
               <Grid.Col sm={12} lg={4} md={4}>
                 <JoinForm
@@ -68,10 +88,16 @@ class Homepage extends Component {
                     <RequestForm
                       value={filterCity}
                       setCityValue={(value)=>{this.setState({filterCity: value})}}
-                      onSubmit={()=>{broadCastData(requestCity(filterCity))}} />
+                      onSubmit={()=>{broadCastData(requestCity(filterCity, peerId))}} />
                 }
               </Grid.Col>
-              <Grid.Col sm={12} lg={4} md={4} />
+              <Grid.Col sm={12} lg={4} md={4}>
+                {
+                  grantedData.map((obj)=>(
+                    <p>{JSON.stringify(obj)}</p>
+                  ))
+                }
+              </Grid.Col>
             </Grid.Row>
           </Grid>
         </Grid.Container>

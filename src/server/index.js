@@ -8,6 +8,7 @@ const { connectToNetwork } = require('./configs/network');
 const { broadcastToPeers } = require('./utils');
 const io = require('socket.io')();
 const port = 8000;
+
 io.listen(port);
 
 let tellClient = (data) =>{};
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const myId = crypto.randomBytes(32);
 global.peers = {};
+
 global.myPeerId = myId.toString('hex');
 
 const swarmConfigs = defaults({
@@ -54,7 +56,7 @@ app.get('/api/subscribeToPeers', (req, res) => {
     swarms: sw,
     handleRequestQuery: onUserRequest,
   });
-  res.send({port: global.port});
+  res.send({port: global.port, id: myId.toString('hex')});
 });
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
