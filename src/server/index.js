@@ -25,7 +25,7 @@ const swarmConfigs = defaults({
   const sw = Swarm(swarmConfigs);
 
   const onUserRequest = (data) => {
-      log("\n\nUser Sent: ",data);
+      console.log("\n\nUser Sent: ",data);
   };
 
   connectToNetwork({
