@@ -47,7 +47,7 @@ class Homepage extends Component {
         let availData = this.state.grantedData;
         if(data.grantedTo === this.state.peerId) {
           availData.push(data);
-          this.setState({grantedData: data});
+          this.setState({grantedData: availData});
         }
       break;
       default:
@@ -94,7 +94,7 @@ class Homepage extends Component {
               <Grid.Col sm={12} lg={4} md={4}>
                 {
                   grantedData.map((obj)=>(
-                    <p>{JSON.stringify(obj)}</p>
+                    <p className={"UserData"}>{JSON.stringify(obj)}</p>
                   ))
                 }
               </Grid.Col>
