@@ -12,6 +12,7 @@ const connectToNetwork = async ({swarms,channelName="Identity-Chain-Channel",han
 
   // Step 1: Choose a random unused port for listening TCP peer connections
   const port = await getPort();
+  global.port = port;
   // Step 2: Let Swarm Server listen to you at the port we got above
    swarms.listen(port);
     log(`Listening to port: ${port}\n`);

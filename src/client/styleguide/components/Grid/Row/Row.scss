@@ -1,0 +1,14 @@
+@import "../../../styles/grid";
+
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: $gutter-compensation-mobile;
+  margin-right: $gutter-compensation-mobile;
+
+  @include wider-than-medium {
+    justify-content: center;
+    margin-left: $gutter-compensation;
+    margin-right: $gutter-compensation;
+  }
+}
