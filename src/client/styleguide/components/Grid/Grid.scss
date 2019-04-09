@@ -1,0 +1,25 @@
+@import "../../styles/grid";
+
+.Grid {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-right: $gutter-width-mobile;
+  padding-left: $gutter-width-mobile;
+  max-width: $grid-xlarge;
+
+  @include wider-than-medium {
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+  }
+}
+
+.Grid--fullWidth {
+  max-width: 100%;
+  margin: 0;
+}
+
+.Grid--noPadding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

@@ -1,0 +1,99 @@
+@import "../../../styles/grid";
+
+
+.Col {
+  width: 100%;
+  padding-right: $gutter-width-mobile / 2;
+  padding-left: $gutter-width-mobile / 2;
+
+  @include wider-than-medium {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: $grid-small - 1) {
+  .Col--sm-hidden-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: $grid-small) {
+  .Col--sm-hidden-up {
+    display: none !important;
+  }
+}
+
+@media (max-width: $grid-medium - 1) {
+  .Col--md-hidden-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: $grid-medium) {
+  .Col--md-hidden-up {
+    display: none !important;
+  }
+}
+
+@media (max-width: $grid-large - 1) {
+  .Col--lg-hidden-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: $grid-large) {
+  .Col--lg-hidden-up {
+    display: none !important;
+  }
+}
+
+@media (max-width: $grid-xlarge - 1) {
+  .Col--xlg-hidden-down {
+    display: none !important;
+  }
+}
+
+@media (min-width: $grid-xlarge) {
+  .Col--xlg-hidden-up {
+    display: none !important;
+  }
+}
+
+@for $i from 1 through 12 {
+  .Col--sm-#{$i} {
+    display: block;
+    flex-basis: #{100% / 12 * $i};
+    max-width: #{100% / 12 * $i};
+  }
+}
+
+@for $i from 1 through 12 {
+  @media (min-width: $grid-medium) {
+    .Col--md-#{$i} {
+      display: block;
+      flex-basis: #{100% / 12 * $i};
+      max-width: #{100% / 12 * $i};
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  @media (min-width: $grid-large) {
+    .Col--lg-#{$i} {
+      display: block;
+      flex-basis: #{100% / 12 * $i};
+      max-width: #{100% / 12 * $i};
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  @media (min-width: $grid-xlarge) {
+    .Col--lg-#{$i} {
+      display: block;
+      flex-basis: #{100% / 12 * $i};
+      max-width: #{100% / 12 * $i};
+    }
+  }
+}

@@ -1,0 +1,59 @@
+// Using Standardized Grid Mixins for Responsive Design
+
+// Breakpoints
+$grid-small: 560px;
+$grid-medium: 768px;
+$grid-large: 1024px;
+$grid-xlarge: 1440px;
+
+// Gutter
+$gutter-width: 24px;
+$gutter-compensation: $gutter-width / 2 * -1;
+$half-gutter-width: $gutter-width / 2;
+$gutter-width-mobile: 8px;
+$gutter-compensation-mobile: $gutter-width-mobile / 2 * -1;
+$half-gutter-width-mobile: $gutter-width-mobile / 2;
+
+$page-margin-mobile: 8px;
+
+@mixin narrower-than-small {
+  @media (max-width: $grid-small) {
+    @content;
+  }
+}
+
+@mixin narrower-than-medium {
+  @media (max-width: $grid-medium - 1) {
+    @content;
+  }
+}
+
+@mixin narrower-than-large {
+  @media (max-width: $grid-large - 1) {
+    @content;
+  }
+}
+
+@mixin wider-than-small {
+  @media (min-width: $grid-small) {
+    @content;
+  }
+}
+
+@mixin wider-than-medium {
+  @media (min-width: $grid-medium) {
+    @content;
+  }
+}
+
+@mixin wider-than-large {
+  @media (min-width: $grid-large) {
+    @content;
+  }
+}
+
+@mixin wider-than-xlarge {
+  @media (min-width: $grid-xlarge) {
+    @content;
+  }
+}

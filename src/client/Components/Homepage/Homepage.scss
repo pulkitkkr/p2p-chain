@@ -1,0 +1,28 @@
+@import "../../styleguide/styles/grid";
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  @include narrower-than-medium {
+    min-height: 200px;
+  }
+}
+
+.StepTitle {
+  font-size: 26px;
+  font-weight: lighter;
+  @include wider-than-medium {
+    font-size: 32px;
+  }
+}
+
+.flag-character {
+  font-size: 50px;
+  margin-right: 5px;
+}
+
+.flag-container {
+  display: flex;
+}

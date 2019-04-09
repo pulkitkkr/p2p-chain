@@ -6,7 +6,17 @@ const os = require('os');
 const bodyParser = require('body-parser');
 const { connectToNetwork } = require('./configs/network');
 const { broadcastToPeers } = require('./utils');
+const io = require('socket.io')();
+const port = 8000;
+io.listen(port);
 
+let tellClient = (data) =>{};
+io.on('connection', (client) => {
+  client.on('subscribeToPeer', () => {
+    console.log('client is subscribed to Peer');
+    tellClient = (data) => client.emit('peerData', data);
+  })
+});
 
 const app = express();
 
@@ -24,20 +34,27 @@ const swarmConfigs = defaults({
   });
   const sw = Swarm(swarmConfigs);
 
+
+
+
+app.post('/api/broadCast', (req, res) => {
+  broadcastToPeers(JSON.stringify(req.body.Data));
+  res.send({status: "sent"})
+});
+
+app.get('/api/subscribeToPeers', (req, res) => {
+  console.log(global.port);
   const onUserRequest = (data) => {
-      console.log("\n\nUser Sent: ",data);
+    tellClient(data);
+    console.log(tellClient);
+    console.log("\n\nUser Sent: ",data);
   };
 
   connectToNetwork({
-      swarms: sw,
-      handleRequestQuery: onUserRequest,
+    swarms: sw,
+    handleRequestQuery: onUserRequest,
   });
-
-
-app.post('/api/setUserInfo', (req, res) => {
-  console.log("API Request");
-  broadcastToPeers(JSON.stringify(req.body.Data));
-  res.send({status: "PK"})
+  res.send({port: global.port});
 });
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

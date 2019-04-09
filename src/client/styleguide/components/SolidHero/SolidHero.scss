@@ -1,0 +1,24 @@
+@import '../../styles/grid';
+
+.HeroContainer {
+  min-height: 250px;
+  margin-bottom: 40px;
+  color: #fff;
+  background-color: #00AEEF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include wider-than-medium {
+    min-height: 400px;
+    margin-bottom: 40px;
+  }
+}
+
+h1 {
+  font-size: 64px;
+
+  @include wider-than-medium {
+    font-size: 90px;
+  }
+}
