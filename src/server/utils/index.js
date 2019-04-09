@@ -1,9 +1,7 @@
 const readline = require('readline');
 
 const broadcastToPeers = (data) => {
-    console.log(global.peers);
     for (let id in peers) {
-        console,log("Writing to: ", id);
         peers[id].conn.write(JSON.stringify(data));
     }
 };
